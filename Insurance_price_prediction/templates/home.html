@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Premium Prediction Project</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            /* Dark background */
+            color: #e0e0e0;
+            /* Light text color */
+            transition: background-color 0.5s, color 0.5s;
+            /* Smooth transition for theme change */
+        }
+
+        body.light-mode {
+            background-color: #f0f4f8;
+            /* Light background */
+            color: #2e2e2e;
+            /* Dark text color */
+        }
+
+        header {
+            background-color: #1e1e1e;
+            /* Darker header */
+            color: #00ffcc;
+            /* Aquamarine text */
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 255, 204, 0.5);
+            text-shadow: 0 0 5px #00ffcc;
+            /* Glowing effect */
+        }
+
+        body.light-mode header {
+            background-color: #ffffff;
+            /* Light header */
+            color: #3b5998;
+            /* Dark blue text */
+            text-shadow: none;
+            /* Remove glow in light mode */
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            background-color: #1e1e1e;
+            /* Dark navbar */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar a {
+            color: #00ffcc;
+            /* Aquamarine link color */
+            text-decoration: none;
+            padding: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: rgba(0, 255, 204, 0.3);
+            /* Glow effect on hover */
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #1e1e1e;
+            /* Darker container */
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(0, 255, 204, 0.3);
+        }
+
+        body.light-mode .container {
+            background-color: #ffffff;
+            /* Light container */
+        }
+
+        h1,
+        h2 {
+            color: #00ffcc;
+            /* Aquamarine headings */
+            margin: 0;
+            text-shadow: 0 0 5px #00ffcc;
+            /* Glowing effect */
+        }
+
+        body.light-mode h1,
+        body.light-mode h2 {
+            color: #3b5998;
+            /* Dark blue headings in light mode */
+        }
+
+        .intro-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .intro-section p {
+            font-size: 1.2rem;
+            line-height: 1.6rem;
+            margin: 1rem 0;
+            color: #b0bec5;
+            /* Light grey text */
+        }
+
+        body.light-mode .intro-section p {
+            color: #2e2e2e;
+            /* Dark text in light mode */
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #ff4081;
+            /* Pink button */
+            border: none;
+            color: #ffffff;
+            /* White text */
+            padding: 0.75rem 1.5rem;
+            text-align: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 0 10px #ff4081;
+            /* Glowing effect */
+        }
+
+        body.light-mode .cta-button {
+            background-color: #3b5998;
+            /* Dark blue button in light mode */
+            color: #ffffff;
+            /* White text */
+        }
+
+        .cta-button:hover {
+            background-color: #ff79b0;
+            /* Lighter pink on hover */
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #ff79b0;
+            /* Glowing effect on hover */
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            margin: 2rem 0;
+        }
+
+        .profile-section img {
+            border-radius: 50%;
+            border: 4px solid #ff4081;
+            /* Border color */
+            margin-right: 2rem;
+            transition: transform 0.3s;
+        }
+
+        .profile-section img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px #ff4081;
+            /* Glowing effect on hover */
+        }
+
+        .profile-section div {
+            max-width: 70%;
+        }
+
+        .project-details {
+            background-color: #2b2b2b;
+            /* Darker project details background */
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .project-details h2 {
+            color: #00ffcc;
+            /* Aquamarine headings */
+            margin-bottom: 1rem;
+            text-shadow: 0 0 5px #00ffcc;
+            /* Glowing effect */
+        }
+
+        .project-details ul {
+            list-style: square;
+            padding-left: 20px;
+        }
+
+        .project-details li {
+            color: #b0bec5;
+            /* Light grey text */
+            margin: 0.5rem 0;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #1e1e1e;
+            /* Dark footer */
+            color: #00ffcc;
+            /* Aquamarine text */
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 2px 10px rgba(0, 255, 204, 0.5);
+            text-shadow: 0 0 5px #00ffcc;
+            /* Glowing effect */
+        }
+
+        body.light-mode .footer {
+            background-color: #ffffff;
+            /* Light footer */
+            color: #3b5998;
+            /* Dark blue text */
+            text-shadow: none;
+            /* Remove glow in light mode */
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .profile-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .profile-section img {
+                margin-bottom: 1rem;
+            }
+
+            .cta-button {
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Insurance Premium Prediction Project</h1>
+        <button id="theme-toggle" class="cta-button">Switch to Light Mode</button>
+    </header>
+    <nav class="navbar">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <div class="container">
+        <div class="intro-section">
+            <h2>Welcome to the Insurance Prediction Project</h2>
+            <p>This initiative focuses on predicting insurance premiums by analyzing various factors, including age,
+                gender, BMI, number of dependents, smoking habits, and geographical region. Our aim is to deliver
+                precise and trustworthy predictions that assist in understanding and managing insurance expenses
+                effectively.</p>
+            <a href="/project" class="cta-button">Explore the Project</a>
+        </div>
+
+        <hr>
+
+        <div class="profile-section">
+            <img src="/static/image/Aman.jpg" height="225" width="200" alt="Profile Picture">
+            <div>
+                <h2>Aman Choudhary</h2>
+                <p>Greetings! I'm Aman Choudhary, a motivated developer specializing in machine learning and web
+                    development. I am passionate about building efficient models for predictive analytics and creating
+                    engaging web applications.</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="project-details">
+            <h2>Project Overview</h2>
+            <p>This project is designed to forecast insurance premium charges based on various demographic and
+                health-related factors. The approach combines data analysis with machine learning techniques to provide
+                accurate predictions.</p>
+            <p><strong>Data Preparation:</strong> The dataset includes crucial features such as age, gender, BMI, number
+                of children, smoking status, and region. Data preprocessing techniques like one-hot encoding and
+                converting categorical variables to numerical formats were employed to prepare the data for analysis.
+            </p>
+            <p><strong>Feature Engineering:</strong> BMI was categorized into different health classes (Underweight,
+                Healthy Weight, Overweight, Obese) to better understand its impact on insurance charges.</p>
+            <p><strong>Model Training:</strong> The following models were trained and evaluated for prediction accuracy:
+            </p>
+            <ul>
+                <li><strong>Linear Regression:</strong> Used to model the linear relationships between the features and
+                    the insurance charges.</li>
+                <li><strong>Decision Tree Regressor:</strong> Implemented to capture non-linear relationships and
+                    interactions between features.</li>
+                <li><strong>Random Forest Regressor:</strong> Employed to enhance prediction accuracy through ensemble
+                    learning techniques.</li>
+            </ul>
+            <p><strong>Model Evaluation:</strong> Each model was evaluated based on training and testing scores to
+                determine their effectiveness. The best-performing models were retained for future use.</p>
+            <p><strong>Data Visualization:</strong> Various visualization tools were utilized, including heatmaps and
+                bar charts, to demonstrate the relationships between health categories and model performance.</p>
+            <p><strong>Outcome:</strong> The project effectively predicts insurance premiums, providing valuable
+                insights for both customers and insurers, helping in financial planning and decision-making.</p>
+    <script>
+        const themeToggleButton = document.getElementById('theme-toggle');
+        themeToggleButton.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            if (document.body.classList.contains('light-mode')) {
+                themeToggleButton.innerText = 'Switch to Dark Mode';
+            } else {
+                themeToggleButton.innerText = 'Switch to Light Mode';
+            }
+        });
+    </script>
+</body>
+
+</html>

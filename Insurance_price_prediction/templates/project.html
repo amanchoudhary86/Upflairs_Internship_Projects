@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Prediction</title>
+    <style>
+        body {
+            background-color: #2e2e2e;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: rgb(131, 58, 180);
+            background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin: 0.5rem 0;
+            width: 100%;
+            max-width: 300px;
+            justify-content: space-between;
+        }
+
+        .input-group label {
+            flex: 1;
+            text-align: left;
+            color: #e2e8f0;
+            /* Changed to a lighter color for better visibility */
+        }
+
+        .input-group input,
+        .input-group select {
+            flex: 2;
+            padding: 0.5rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            background-color: rgba(17, 24, 39, 1);
+            color: rgba(243, 244, 246, 1);
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            border-color: rgba(167, 139, 250);
+        }
+
+        button {
+            text-decoration: none;
+            position: relative;
+            border: none;
+            font-size: 14px;
+            font-family: inherit;
+            cursor: pointer;
+            color: #fff;
+            width: 9em;
+            height: 3em;
+            line-height: 2em;
+            text-align: center;
+            background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+            background-size: 300%;
+            border-radius: 30px;
+            z-index: 1;
+        }
+
+        button:hover {
+            animation: ani 8s linear infinite;
+            border: none;
+        }
+
+        @keyframes ani {
+            0% {
+                background-position: 0%;
+            }
+
+            100% {
+                background-position: 400%;
+            }
+        }
+
+        button:before {
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            z-index: -1;
+            background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+            background-size: 400%;
+            border-radius: 35px;
+            transition: 1s;
+        }
+
+        button:hover::before {
+            filter: blur(20px);
+        }
+
+        button:active {
+            background: linear-gradient(32deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Get Insurance Premium Charges Prediction</h2>
+        <hr>
+        <form action="{{ url_for('predict') }}" method="post">
+            <div class="input-group">
+                <label for="region">Region:</label>
+                <select name="region" id="region">
+                    <option value="se">Southeast</option>
+                    <option value="sw">Southwest</option>
+                    <option value="ne">Northeast</option>
+                    <option value="nw">Northwest</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="children">Children:</label>
+                <select name="children" id="children">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="health">Health:</label>
+                <select name="health" id="health">
+                    <option value="1">Underweight</option>
+                    <option value="2">Healthy Weight</option>
+                    <option value="3">Overweight</option>
+                    <option value="4">Obese</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="smoker">Smoker:</label>
+                <select name="smoker" id="smoker">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="gender">Gender:</label>
+                <select name="gender" id="gender">
+                    <option value="0">Female</option>
+                    <option value="1">Male</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="bmi">BMI:</label>
+                <input type="text" name="bmi" id="bmi" required>
+            </div>
+
+            <div class="input-group">
+                <label for="age">Age:</label>
+                <input type="text" name="age" id="age" placeholder="Your age, please..." required>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+
+</html>
